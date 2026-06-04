@@ -1,0 +1,63 @@
+<aside class="preview">
+  <div class="preview-card">
+    <div class="head">
+      <span class="label">{{ translate.t('preview.invoice') }}</span>
+      <span class="num">{{ data.invoiceNumber || 'INV-?' }}</span>
+    </div>
+
+    <div class="parties">
+      <div class="party">
+        <span class="label">{{ translate.t('preview.from') }}</span>
+        <span class="value">{{ data.senderName || '?' }}</span>
+      </div>
+      <div class="party">
+        <span class="label">{{ translate.t('preview.billTo') }}</span>
+        <span class="value">{{ data.recipientName || '?' }}</span>
+        <span class="sub">{{ data.recipientCity }}</span>
+      </div>
+    </div>
+
+    <div class="dates">
+      <div>
+        <span class="label">{{ translate.t('preview.issue') }}</span>
+        <span class="value-sm">{{ formatDate(data.issueDate) }}</span>
+      </div>
+      <div>
+        <span class="label">{{ translate.t('preview.due') }}</span>
+        <span class="value-sm">{{ formatDate(data.dueDate) }}</span>
+      </div>
+    </div>
+
+    <div class="summary">
+      <div class="line">
+        <span>{{ translate.t('preview.itemsCount') }}</span>
+        <span>{{ data.itemsCount }}</span>
+      </div>
+      <div class="line">
+        <span>{{ translate.t('preview.subtotal') }}</span>
+        <span>{{ formatMoney(data.subtotal) }}</span>
+      </div>
+      <div class="line">
+        <span>{{ translate.t('preview.vat') }}</span>
+        <span>{{ formatMoney(data.vat) }}</span>
+      </div>
+    </div>
+
+    <div class="total">
+      <span class="label">{{ translate.t('preview.total') }}</span>
+      <span class="amount">{{ formatMoney(data.total) }}</span>
+    </div>
+
+    <button
+      type="button"
+      class="download-btn"
+      [class.is-loading]="loading"
+      (click)="onDownload()"
+      [disabled]="loading"
+    >
+      {{ loading ? translate.t('preview.generating') : translate.t('preview.download') }}
+    </button>
+
+    <p class="error" *ngIf="error">{{ error }}</p>
+  </div>
+</aside>

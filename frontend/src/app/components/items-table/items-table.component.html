@@ -1,0 +1,63 @@
+<div class="items-table">
+  <div class="row header">
+    <div class="col description">{{ translate.t('items.description') }}</div>
+    <div class="col qty">{{ translate.t('items.qty') }}</div>
+    <div class="col price">{{ translate.t('items.unitPrice') }}</div>
+    <div class="col vat">{{ translate.t('items.vat') }}</div>
+    <div class="col total">{{ translate.t('items.total') }}</div>
+    <div class="col remove"></div>
+  </div>
+
+  <div class="row body" *ngFor="let row of rows; let i = index" [formGroup]="row">
+    <div class="col description">
+      <input
+        type="text"
+        formControlName="description"
+        [placeholder]="translate.t('placeholder.itemDescription')"
+      />
+    </div>
+    <div class="col qty">
+      <input
+        type="number"
+        min="0"
+        step="1"
+        formControlName="quantity"
+        class="num"
+      />
+    </div>
+    <div class="col price">
+      <input
+        type="number"
+        min="0"
+        step="0.01"
+        formControlName="unitPrice"
+        class="num"
+      />
+    </div>
+    <div class="col vat">
+      <input
+        type="number"
+        min="0"
+        step="0.1"
+        formControlName="vatRate"
+        class="num"
+      />
+    </div>
+    <div class="col total">{{ formatMoney(lineTotal(row)) }}</div>
+    <div class="col remove">
+      <button
+        type="button"
+        class="remove-btn"
+        (click)="removeItem(i)"
+        [disabled]="items.length <= 1"
+        [attr.aria-label]="translate.t('items.remove')"
+      >
+        �
+      </button>
+    </div>
+  </div>
+
+  <button type="button" class="add-btn" (click)="addItem()">
+    {{ translate.t('items.add') }}
+  </button>
+</div>

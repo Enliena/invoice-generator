@@ -1,0 +1,100 @@
+.items-table {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 4fr 1fr 1.4fr 0.8fr 1.4fr 32px;
+  align-items: center;
+  gap: var(--sm);
+  padding: 10px 8px;
+  border-bottom: 1px solid var(--bg-secondary);
+  transition: background var(--transition-fast);
+}
+
+.row.header {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-secondary);
+  border-bottom: 1px solid var(--border);
+}
+
+.row.body:hover .remove-btn {
+  opacity: 1;
+}
+
+.row.body:nth-child(even) {
+  background: var(--bg-tertiary);
+}
+
+.col input {
+  width: 100%;
+  border: none;
+  background: transparent;
+  outline: none;
+  border-bottom: 1px solid transparent;
+  padding: 6px 0;
+  transition: border-color var(--transition-fast);
+}
+
+.col input::placeholder {
+  color: var(--text-tertiary);
+}
+
+.col input:focus {
+  border-bottom-color: var(--accent);
+}
+
+.col input.num {
+  text-align: right;
+}
+
+.col.total {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-primary);
+}
+
+.col.qty,
+.col.price,
+.col.vat {
+  text-align: right;
+}
+
+.remove-btn {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  font-size: 18px;
+  line-height: 1;
+  color: var(--text-tertiary);
+  opacity: 0;
+  transition: opacity var(--transition-fast), background var(--transition-fast),
+    color var(--transition-fast);
+}
+
+.remove-btn:hover:not(:disabled) {
+  background: var(--bg-secondary);
+  color: var(--error);
+}
+
+.remove-btn:disabled {
+  cursor: not-allowed;
+}
+
+.add-btn {
+  align-self: flex-start;
+  color: var(--accent);
+  font-size: 13px;
+  font-weight: 500;
+  padding: 12px 0;
+  margin-top: var(--sm);
+  transition: color var(--transition-fast);
+}
+
+.add-btn:hover {
+  color: var(--accent-hover);
+}

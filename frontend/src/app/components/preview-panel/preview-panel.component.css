@@ -1,0 +1,131 @@
+.preview {
+  position: sticky;
+  top: var(--xl);
+  padding: var(--xl);
+}
+
+.preview-card {
+  background: var(--bg-primary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--lg);
+  box-shadow: 0 1px 2px var(--shadow), 0 8px 24px var(--shadow);
+  display: flex;
+  flex-direction: column;
+  gap: var(--md);
+}
+
+.label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-secondary);
+  display: block;
+}
+
+.head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding-bottom: var(--md);
+  border-bottom: 1px solid var(--border);
+}
+
+.head .num {
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.parties {
+  display: flex;
+  flex-direction: column;
+  gap: var(--md);
+}
+
+.party .value {
+  display: block;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-top: 2px;
+}
+
+.party .sub {
+  font-size: 11px;
+  color: var(--text-secondary);
+}
+
+.dates {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--md);
+}
+
+.value-sm {
+  font-size: 13px;
+  color: var(--text-primary);
+  display: block;
+  margin-top: 2px;
+}
+
+.summary {
+  display: flex;
+  flex-direction: column;
+  gap: var(--xs);
+  padding-top: var(--md);
+  border-top: 1px solid var(--bg-secondary);
+}
+
+.line {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: var(--text-secondary);
+  font-variant-numeric: tabular-nums;
+}
+
+.total {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: var(--md);
+  background: var(--bg-secondary);
+  border-radius: var(--radius-md);
+}
+
+.total .amount {
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+.download-btn {
+  width: 100%;
+  background: var(--text-primary);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 14px 16px;
+  border-radius: 12px;
+  transition: background var(--transition-fast), transform var(--transition-fast),
+    opacity var(--transition-fast);
+}
+
+.download-btn:hover:not(:disabled) {
+  background: #000;
+  transform: scale(1.005);
+}
+
+.download-btn:disabled,
+.download-btn.is-loading {
+  opacity: 0.6;
+  cursor: progress;
+}
+
+.error {
+  margin: 0;
+  color: var(--error);
+  font-size: 11px;
+  text-align: center;
+}

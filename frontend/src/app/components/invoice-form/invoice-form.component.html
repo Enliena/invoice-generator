@@ -1,0 +1,220 @@
+<div class="layout">
+  <main class="form-pane">
+    <header class="page-head">
+      <h1 class="title">{{ translate.t('app.title') }}</h1>
+      <p class="subtitle">{{ translate.t('app.subtitle') }}</p>
+    </header>
+
+    <form [formGroup]="form" (ngSubmit)="download()" novalidate>
+      <!-- Émetteur -->
+      <section
+        class="section"
+        [class.is-open]="sections[0].open"
+      >
+        <button
+          type="button"
+          class="section-head"
+          (click)="toggleSection('sender')"
+        >
+          <span class="section-title">{{ translate.t(sections[0].labelKey) }}</span>
+          <span class="chevron">{{ sections[0].open ? '-' : '+' }}</span>
+        </button>
+        <div class="section-body" *ngIf="sections[0].open" formGroupName="sender">
+          <div class="grid two">
+            <div class="field">
+              <label>{{ translate.t('field.name') }}</label>
+              <input
+                type="text"
+                formControlName="name"
+                [placeholder]="translate.t('placeholder.companyName')"
+                [class.error]="isInvalid('sender.name')"
+              />
+              <small class="err" *ngIf="errorOf('sender.name') as e">{{ e }}</small>
+            </div>
+            <div class="field">
+              <label>{{ translate.t('field.email') }}</label>
+              <input
+                type="email"
+                formControlName="email"
+                [placeholder]="translate.t('placeholder.companyEmail')"
+                [class.error]="isInvalid('sender.email')"
+              />
+              <small class="err" *ngIf="errorOf('sender.email') as e">{{ e }}</small>
+            </div>
+            <div class="field full">
+              <label>{{ translate.t('field.address') }}</label>
+              <input type="text" formControlName="address" [placeholder]="translate.t('placeholder.street')" />
+            </div>
+            <div class="field">
+              <label>{{ translate.t('field.city') }}</label>
+              <input type="text" formControlName="city" [placeholder]="translate.t('placeholder.city')" />
+            </div>
+            <div class="field">
+              <label>{{ translate.t('field.country') }}</label>
+              <input type="text" formControlName="country" [placeholder]="translate.t('placeholder.country')" />
+            </div>
+            <div class="field">
+              <label>{{ translate.t('field.phone') }}</label>
+              <input type="tel" formControlName="phone" [placeholder]="translate.t('placeholder.phone')" />
+            </div>
+            <div class="field">
+              <label>{{ translate.t('field.siret') }}</label>
+              <input type="text" formControlName="siret" [placeholder]="translate.t('placeholder.siret')" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Destinataire -->
+      <section class="section" [class.is-open]="sections[1].open">
+        <button
+          type="button"
+          class="section-head"
+          (click)="toggleSection('recipient')"
+        >
+          <span class="section-title">{{ translate.t(sections[1].labelKey) }}</span>
+          <span class="chevron">{{ sections[1].open ? '-' : '+' }}</span>
+        </button>
+        <div class="section-body" *ngIf="sections[1].open" formGroupName="recipient">
+          <div class="grid two">
+            <div class="field">
+              <label>{{ translate.t('field.name') }}</label>
+              <input
+                type="text"
+                formControlName="name"
+                [placeholder]="translate.t('placeholder.clientName')"
+                [class.error]="isInvalid('recipient.name')"
+              />
+              <small class="err" *ngIf="errorOf('recipient.name') as e">{{ e }}</small>
+            </div>
+            <div class="field">
+              <label>{{ translate.t('field.email') }}</label>
+              <input
+                type="email"
+                formControlName="email"
+                [placeholder]="translate.t('placeholder.clientEmail')"
+                [class.error]="isInvalid('recipient.email')"
+              />
+              <small class="err" *ngIf="errorOf('recipient.email') as e">{{ e }}</small>
+            </div>
+            <div class="field full">
+              <label>{{ translate.t('field.address') }}</label>
+              <input type="text" formControlName="address" [placeholder]="translate.t('placeholder.street')" />
+            </div>
+            <div class="field">
+              <label>{{ translate.t('field.city') }}</label>
+              <input type="text" formControlName="city" [placeholder]="translate.t('placeholder.city')" />
+            </div>
+            <div class="field">
+              <label>{{ translate.t('field.country') }}</label>
+              <input type="text" formControlName="country" [placeholder]="translate.t('placeholder.country')" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Métadonnées -->
+      <section class="section" [class.is-open]="sections[2].open">
+        <button
+          type="button"
+          class="section-head"
+          (click)="toggleSection('meta')"
+        >
+          <span class="section-title">{{ translate.t(sections[2].labelKey) }}</span>
+          <span class="chevron">{{ sections[2].open ? '-' : '+' }}</span>
+        </button>
+        <div class="section-body" *ngIf="sections[2].open">
+          <div class="grid three">
+            <div class="field">
+              <label>{{ translate.t('field.number') }}</label>
+              <input
+                type="text"
+                formControlName="invoiceNumber"
+                [class.error]="isInvalid('invoiceNumber')"
+              />
+              <small class="err" *ngIf="errorOf('invoiceNumber') as e">{{ e }}</small>
+            </div>
+            <div class="field">
+              <label>{{ translate.t('field.issueDate') }}</label>
+              <input
+                type="date"
+                formControlName="issueDate"
+                [class.error]="isInvalid('issueDate')"
+              />
+            </div>
+            <div class="field">
+              <label>{{ translate.t('field.dueDate') }}</label>
+              <input
+                type="date"
+                formControlName="dueDate"
+                [class.error]="isInvalid('dueDate')"
+              />
+            </div>
+            <div class="field">
+              <label>{{ translate.t('field.currency') }}</label>
+              <select formControlName="currency">
+                <option *ngFor="let c of currencies" [value]="c">{{ c }}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Articles -->
+      <section class="section" [class.is-open]="sections[3].open">
+        <button
+          type="button"
+          class="section-head"
+          (click)="toggleSection('items')"
+        >
+          <span class="section-title">{{ translate.t(sections[3].labelKey) }}</span>
+          <span class="chevron">{{ sections[3].open ? '-' : '+' }}</span>
+        </button>
+        <div class="section-body" *ngIf="sections[3].open">
+          <app-items-table
+            [items]="items"
+            [currency]="form.get('currency')?.value"
+          ></app-items-table>
+        </div>
+      </section>
+
+      <!-- Pied de page -->
+      <section class="section" [class.is-open]="sections[4].open">
+        <button
+          type="button"
+          class="section-head"
+          (click)="toggleSection('footer')"
+        >
+          <span class="section-title">{{ translate.t(sections[4].labelKey) }}</span>
+          <span class="chevron">{{ sections[4].open ? '-' : '+' }}</span>
+        </button>
+        <div class="section-body" *ngIf="sections[4].open">
+          <div class="field">
+            <label>{{ translate.t('field.notes') }}</label>
+            <textarea
+              rows="3"
+              formControlName="notes"
+              [placeholder]="translate.t('placeholder.notes')"
+            ></textarea>
+          </div>
+          <div class="field">
+            <label>{{ translate.t('field.paymentInfo') }}</label>
+            <textarea
+              rows="3"
+              formControlName="paymentInfo"
+              [placeholder]="translate.t('placeholder.paymentInfo')"
+            ></textarea>
+          </div>
+        </div>
+      </section>
+    </form>
+  </main>
+
+  <app-preview-panel
+    class="preview-pane"
+    [data]="preview"
+    [loading]="loading"
+    [error]="error"
+    (download)="download()"
+  ></app-preview-panel>
+</div>
